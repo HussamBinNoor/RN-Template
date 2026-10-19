@@ -1,0 +1,4 @@
+<resources>
+    <!-- Splash screen background — same cool gray as the logo artwork. -->
+    <color name="splash_background">#E8EBF0</color>
+</resources>

@@ -1,43 +1,22 @@
 {
-  "name": "HbnRnTemplate",
-  "version": "0.0.1",
+  "name": "hbn-rn-template",
+  "version": "0.1.0",
   "private": true,
+  "description": "HBN RN Template — production-grade React Native 0.87 starter. Use `npx @react-native-community/cli init MyApp --template .` or the `create-rn87-app` CLI to scaffold a new app.",
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "lint": "eslint .",
-    "start": "react-native start",
-    "test": "jest"
-  },
-  "dependencies": {
-    "@react-native/new-app-screen": "0.87.1",
-    "react": "19.2.3",
-    "react-native": "0.87.1",
-    "react-native-safe-area-context": "^5.5.2"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/preset-env": "^7.25.3",
-    "@babel/runtime": "^7.25.0",
-    "@react-native-community/cli": "20.2.0",
-    "@react-native-community/cli-platform-android": "20.2.0",
-    "@react-native-community/cli-platform-ios": "20.2.0",
-    "@react-native/babel-preset": "0.87.1",
-    "@react-native/eslint-config": "0.87.1",
-    "@react-native/jest-preset": "0.87.1",
-    "@react-native/metro-config": "0.87.1",
-    "@react-native/typescript-config": "0.87.1",
-    "@types/jest": "^29.5.13",
-    "@types/react": "^19.2.0",
-    "@types/react-test-renderer": "^19.1.0",
-    "eslint": "^8.19.0",
-    "jest": "^29.6.3",
-    "prettier": "2.8.8",
-    "react-test-renderer": "19.2.3",
-    "typescript": "^6.0.3"
+    "template:install": "cd template && yarn install",
+    "template:test": "cd template && yarn test",
+    "template:lint": "cd template && yarn lint",
+    "template:typecheck": "cd template && yarn typecheck",
+    "template:format": "cd template && yarn format",
+    "template:clean": "cd template && yarn clean",
+    "logo:build": "python3 scripts/build-logo.py",
+    "cli:test": "node --test cli/src/__tests__",
+    "test": "yarn cli:test",
+    "lint": "echo 'Run `yarn template:lint` to lint the embedded template, or `yarn cli:test` to test the CLI.'"
   },
   "engines": {
-    "node": ">= 22.11.0"
+    "node": ">=20.12"
   },
-  "packageManager": "yarn@3.6.4"
+  "license": "MIT"
 }

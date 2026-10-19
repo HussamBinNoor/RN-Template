@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Native splash. Composed of:
+    - a solid background color matching the logo artwork (splash_background)
+    - the centered splash logo PNG
+  This is referenced by SplashTheme in styles.xml while the activity is
+  launching; MainActivity switches the theme back to AppTheme once the JS
+  bundle is ready, so the user never sees a black/white flash.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/splash_background" />
+        </shape>
+    </item>
+    <item
+        android:width="160dp"
+        android:height="160dp"
+        android:gravity="center"
+        android:drawable="@drawable/splash_logo" />
+</layer-list>
