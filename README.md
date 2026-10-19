@@ -4,6 +4,51 @@ A production-grade **React Native 0.87.1** starter template, authored by [Hussam
 
 The repo is laid out as a [React Native CLI template package](https://github.com/react-native-community/cli/blob/main/docs/init.md#creating-custom-template) so it can be used directly with `npx @react-native-community/cli init … --template .` and consumed end-to-end by the bundled `create-rn87-app` scaffolder.
 
+## 🚀 Quick start — Use this template
+
+There are **three ways** to scaffold a new React Native app from this template. Pick whichever fits your workflow.
+
+### 1. One-liner from GitHub ⭐ (recommended)
+
+```bash
+npx @react-native-community/cli@latest init MyApp \
+  --template https://github.com/hussambinnoor/HBN-RN-Template
+cd MyApp && yarn ios    # or `yarn android`
+```
+
+This downloads the repo, renames `HbnRnTemplate` → `MyApp` everywhere (package name, Android package `com.hbnrntemplate` → `com.myapp`, iOS target, native module `PhotoADay` → `MyApp`), runs `yarn install`, and you're ready to run.
+
+### 2. Clone first, use locally
+
+Best when you want to inspect or customise the template before scaffolding:
+
+```bash
+git clone https://github.com/hussambinnoor/HBN-RN-Template
+npx @react-native-community/cli@latest init MyApp --template ./HBN-RN-Template
+cd MyApp && yarn install && yarn ios
+```
+
+### 3. Use the bundled `create-rn87-app` CLI
+
+Friendlier interactive scaffolder (prompts for target folder, package manager, etc.):
+
+```bash
+git clone https://github.com/hussambinnoor/HBN-RN-Template
+node HBN-RN-Template/cli/bin/create-rn87-app.js MyApp
+cd MyApp && yarn install && yarn ios
+```
+
+### Or click **Use this template** on GitHub
+
+On the repo page, the green **Use this template** button forks the whole template repo as a brand-new standalone project. Use this if you want to maintain a custom fork; for scaffolding an RN app, use one of the three commands above.
+
+### Requirements
+
+- **Node** `>= 20.12`
+- **yarn** 1.x classic
+- **iOS** — macOS with Xcode 15+ and CocoaPods 1.13+
+- **Android** — Android Studio with API 24+ SDK and JDK 17
+
 ## Why this template
 
 - **RN 0.87.1** with the New Architecture always on.
@@ -182,14 +227,14 @@ This template ships with a complete branded launch experience out of the box. Ev
 
 ### What's wired
 
-| Surface | Where | Notes |
-| --- | --- | --- |
-| iOS AppIcon (15 sizes) | `template/ios/HbnRnTemplate/Images.xcassets/AppIcon.appiconset/` | 20/29/40/60/76/83.5/1024 px + @2x/@3x |
-| iOS native splash | `template/ios/HbnRnTemplate/LaunchScreen.storyboard` | Centered logo on the brand gray (`#E8EBF0`) |
-| Android AppIcon (5 densities) | `template/android/app/src/main/res/mipmap-{m,h,xh,xxh,xxxh}dpi/` | `ic_launcher.png` + `ic_launcher_round.png` (circular mask) |
-| Android native splash | `template/android/app/src/main/res/drawable/splash_screen.xml` | `<layer-list>` over `@color/splash_background` |
-| Android activity theme | `template/android/app/src/main/res/values/styles.xml` (`SplashTheme`) + `AndroidManifest.xml` | `SplashTheme` until first JS frame, then `setTheme(R.style.AppTheme)` in `MainActivity.onCreate` |
-| JS splash overlay | `template/src/components/Splash/Splash.tsx` | Reanimated fade-out, `minDurationMs` prop, `onFinished` callback |
+| Surface                       | Where                                                                                         | Notes                                                                                            |
+| ----------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| iOS AppIcon (15 sizes)        | `template/ios/HbnRnTemplate/Images.xcassets/AppIcon.appiconset/`                              | 20/29/40/60/76/83.5/1024 px + @2x/@3x                                                            |
+| iOS native splash             | `template/ios/HbnRnTemplate/LaunchScreen.storyboard`                                          | Centered logo on the brand gray (`#E8EBF0`)                                                      |
+| Android AppIcon (5 densities) | `template/android/app/src/main/res/mipmap-{m,h,xh,xxh,xxxh}dpi/`                              | `ic_launcher.png` + `ic_launcher_round.png` (circular mask)                                      |
+| Android native splash         | `template/android/app/src/main/res/drawable/splash_screen.xml`                                | `<layer-list>` over `@color/splash_background`                                                   |
+| Android activity theme        | `template/android/app/src/main/res/values/styles.xml` (`SplashTheme`) + `AndroidManifest.xml` | `SplashTheme` until first JS frame, then `setTheme(R.style.AppTheme)` in `MainActivity.onCreate` |
+| JS splash overlay             | `template/src/components/Splash/Splash.tsx`                                                   | Reanimated fade-out, `minDurationMs` prop, `onFinished` callback                                 |
 
 ### Regenerating from your own art
 
@@ -342,7 +387,7 @@ Pair it with TanStack Query:
 ```tsx
 const { data, isLoading } = useQuery({
   queryKey: queryKeys.todos,
-  queryFn: () => apiGet<Todo[]>('/todos'),
+  queryFn: () => apiGet<Todo[]>("/todos"),
 });
 ```
 
@@ -351,9 +396,9 @@ const { data, isLoading } = useQuery({
 Zustand v5 (no `immer` bundled by default — use `set`):
 
 ```tsx
-import { useAppStore } from '@/store/useAppStore';
-const pref = useAppStore(s => s.themePreference);
-useAppStore.getState().setThemePreference('dark');
+import { useAppStore } from "@/store/useAppStore";
+const pref = useAppStore((s) => s.themePreference);
+useAppStore.getState().setThemePreference("dark");
 ```
 
 ## Testing (inside the template)
@@ -381,6 +426,7 @@ A field guide for the things that bit me while building this and will probably b
 If `templateDir` is missing from your `template.config.js`, the 4th arg is `undefined` and the `path.resolve` call explodes.
 
 **Fix.**
+
 ```sh
 # 1. Verify the field is set:
 grep templateDir template.config.js
@@ -396,6 +442,7 @@ node cli/bin/create-rn87-app.js MyApp /tmp/my-app --template . --skip-install
 **Cause.** The CLI is treating the value of `--template` as an npm package name instead of a local path. The wrapper CLI needs to forward `--template` to the underlying `init` call.
 
 **Fix.**
+
 ```sh
 # Pass an absolute path, not a relative one, and confirm the wrapper forwards it:
 node cli/bin/create-rn87-app.js MyApp /tmp/my-app \
@@ -409,6 +456,7 @@ node cli/bin/create-rn87-app.js MyApp /tmp/my-app \
 **Cause.** A previous scaffold run left files behind (a partial install, a leftover `MyApp` dir, etc.).
 
 **Fix.**
+
 ```sh
 # Either remove the dir, or pick a fresh target:
 rm -rf /tmp/my-app/MyApp          # only if you're sure
@@ -421,6 +469,7 @@ node cli/bin/create-rn87-app.js MyApp /tmp/my-app-fresh --template .
 **Cause.** iOS caches asset catalogs in `~/Library/Developer/Xcode/DerivedData/`, and Android caches them under `android/app/build/`. The new PNGs are on disk; the build just doesn't see them.
 
 **Fix.**
+
 ```sh
 # 1. Regenerate from the new master (idempotent — safe to re-run):
 yarn logo:build
@@ -442,6 +491,7 @@ yarn android
 **Cause.** `MainActivity.onCreate` isn't re-theming back to `AppTheme` before `super.onCreate`, so the `SplashTheme` stays on top while React is booting.
 
 **Fix.**
+
 ```sh
 # Inspect the activity — it must look like this:
 cat android/app/src/main/java/com/<your-package>/MainActivity.kt
@@ -458,6 +508,7 @@ cat android/app/src/main/java/com/<your-package>/MainActivity.kt
 **Cause.** The `LaunchScreen.storyboard` doesn't reference an image — the user sees a white `UIView` until JS paints.
 
 **Fix.**
+
 ```sh
 # 1. Confirm the storyboard references splash-logo:
 grep 'image="' ios/<YourApp>/LaunchScreen.storyboard
@@ -478,6 +529,7 @@ rm -rf ~/Library/Developer/Xcode/DerivedData
 **Cause.** Usually a reanimated/worklets setup issue, or `minDurationMs` is too high and the fade never starts.
 
 **Fix.**
+
 ```sh
 # 1. Sanity-check the component is mounted:
 grep '<Splash' App.tsx
@@ -505,6 +557,7 @@ yarn start --reset-cache
 **Cause.** The Jest mocks for `react-native-reanimated` and `react-native-worklets` are in `jest.setup.ts`. If they get out of sync with the real packages, tests leak async work and the worker-pool "force exit" warning fires.
 
 **Fix.**
+
 ```sh
 # 1. Make sure the mocks are loaded:
 grep -E "react-native-reanimated|react-native-worklets" jest.setup.ts
@@ -522,6 +575,7 @@ yarn test --detectOpenHandles
 **Cause.** `template/ios/Pods/`, `template/ios/build/`, `template/android/build/`, or `template/node_modules/` snuck back in. These break the RN CLI's `walk` because it tries to read symlinks / huge trees that don't exist in the target project.
 
 **Fix.**
+
 ```sh
 # Strip build artifacts out of the template — they're regenerated on first install:
 rm -rf template/ios/Pods template/ios/build
@@ -538,6 +592,7 @@ find template -maxdepth 2 -name "Pods" -o -name "build" -o -name "node_modules" 
 **Cause.** lucide ships ESM, and Jest's default RN transform trips over it. The template works around this in `jest.config.js`.
 
 **Fix.**
+
 ```sh
 # 1. Verify the moduleNameMapper is set:
 grep -A1 "lucide-react-native" jest.config.js
@@ -560,6 +615,7 @@ yarn test
 **Cause.** `build-logo.py` doesn't run Prettier. Large binary diffs can also touch a lot of files and trip the cache.
 
 **Fix.**
+
 ```sh
 # 1. Run lint:fix to format + autofix:
 yarn template:lint:fix
