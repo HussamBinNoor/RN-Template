@@ -8,6 +8,8 @@ The repo is laid out as a [React Native CLI template package](https://github.com
 
 There are **three ways** to scaffold a new React Native app from this template. Pick whichever fits your workflow.
 
+> ⚠️ **Heads up:** project names must be **alphanumeric** — the React Native CLI rejects hyphens, spaces, and most symbols. Use `MyApp`, **not** `My-App`. Same rule for every command below.
+
 ### 1. One-liner from GitHub ⭐ (recommended)
 
 ```bash
