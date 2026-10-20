@@ -6,6 +6,7 @@ import {
   FormInput as FormIcon,
   Settings as SettingsIcon,
 } from 'lucide-react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppTheme } from '@/providers/ThemeProvider';
 import type { MainTabsParamList } from './types';
 import { HomeScreen } from '@/screens/Home/Home';
@@ -17,6 +18,7 @@ const Tab = createBottomTabNavigator<MainTabsParamList>();
 
 export function MainTabs(): React.JSX.Element {
   const theme = useAppTheme();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tab.Navigator
@@ -27,9 +29,9 @@ export function MainTabs(): React.JSX.Element {
         tabBarStyle: {
           backgroundColor: theme.colors.surfaceElevated,
           borderTopColor: theme.colors.border,
-          height: 64,
+          height: 64 + insets.bottom,
           paddingTop: 6,
-          paddingBottom: 8,
+          paddingBottom: 8 + insets.bottom,
         },
         tabBarLabelStyle: {
           fontSize: theme.fontSize.xs,
