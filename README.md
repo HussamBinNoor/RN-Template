@@ -35,6 +35,7 @@ cd MyApp && yarn install && yarn ios
 Friendlier interactive scaffolder (prompts for target folder, package manager, etc.):
 
 ```bash
+
 git clone https://github.com/hussambinnoor/HBN-RN-Template
 node HBN-RN-Template/cli/bin/create-rn87-app.js MyApp
 cd MyApp && yarn install && yarn ios
