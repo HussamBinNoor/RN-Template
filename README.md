@@ -1,4 +1,4 @@
-# HBN-RN-Template
+# RN-Template
 
 A production-grade **React Native 0.87.1** starter template, authored by [Hussam Bin Noor](https://github.com/hussambinnoor). Strict TypeScript, the New Architecture (Fabric + TurboModules) on by default, theming, navigation, forms, data layer, 20+ reusable UI components, working demo screens, and a **branded splash + AppIcon** generated from a single source asset.
 
@@ -14,7 +14,7 @@ There are **three ways** to scaffold a new React Native app from this template. 
 
 ```bash
 npx @react-native-community/cli@latest init MyApp \
-  --template https://github.com/hussambinnoor/HBN-RN-Template
+  --template https://github.com/hussambinnoor/RN-Template
 cd MyApp && yarn ios    # or `yarn android`
 ```
 
@@ -25,8 +25,8 @@ This downloads the repo, renames `HbnRnTemplate` → `MyApp` everywhere (package
 Best when you want to inspect or customise the template before scaffolding:
 
 ```bash
-git clone https://github.com/hussambinnoor/HBN-RN-Template
-npx @react-native-community/cli@latest init MyApp --template ./HBN-RN-Template
+git clone https://github.com/hussambinnoor/RN-Template
+npx @react-native-community/cli@latest init MyApp --template ./RN-Template
 cd MyApp && yarn install && yarn ios
 ```
 
@@ -36,8 +36,8 @@ Friendlier interactive scaffolder (prompts for target folder, package manager, e
 
 ```bash
 
-git clone https://github.com/hussambinnoor/HBN-RN-Template
-node HBN-RN-Template/cli/bin/create-rn87-app.js MyApp
+git clone https://github.com/hussambinnoor/RN-Template
+node RN-Template/cli/bin/create-rn87-app.js MyApp
 cd MyApp && yarn install && yarn ios
 ```
 
@@ -213,7 +213,7 @@ npx @react-native-community/cli@latest init MyApp \
   --pm yarn
 ```
 
-When this template is published to npm as `hbn-rn-template`, the `--template` flag becomes optional (it'll default to the package name).
+When this template is published to npm as `rn-template`, the `--template` flag becomes optional (it'll default to the package name).
 
 ## Verifying a scaffold
 
@@ -414,7 +414,7 @@ useAppStore.getState().setThemePreference("dark");
 
 ## Known limitations
 
-- The CLI expects the template to be published to npm as `hbn-rn-template` for the default flow. Until then, set `HBN_RN_TEMPLATE` or pass `--template <path>`.
+- The CLI expects the template to be published to npm as `rn-template` for the default flow. Until then, set `HBN_RN_TEMPLATE` or pass `--template <path>`.
 - The template's `customConditions: ["react-native"]` only takes effect under a `moduleResolution: "bundler"` TypeScript config — this is set by default.
 - `node_modules/`, `ios/Pods/`, `android/build/`, `vendor/`, and `yarn.lock` are intentionally **excluded** from `template/`. The RN CLI's copy step chokes on them with `paths[3] undefined` if they're present. Re-generated on first install in each new app.
 
