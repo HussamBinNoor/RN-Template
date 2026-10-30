@@ -6,11 +6,26 @@ The repo is laid out as a [React Native CLI template package](https://github.com
 
 ## 🚀 Quick start — Use this template
 
-There are **three ways** to scaffold a new React Native app from this template. Pick whichever fits your workflow.
+There are **four ways** to scaffold a new React Native app from this template. Pick whichever fits your workflow.
 
 > ⚠️ **Heads up:** project names must be **alphanumeric** — the React Native CLI rejects hyphens, spaces, and most symbols. Use `MyApp`, **not** `My-App`. Same rule for every command below.
 
-### 1. One-liner from GitHub ⭐ (recommended)
+### 1. From npm ⭐ (fastest)
+
+```bash
+npx @react-native-community/cli@latest init MyApp --template hbn-rn-template
+cd MyApp && yarn install && yarn ios    # or `yarn android`
+```
+
+Or use the friendly scaffolder, which also handles `yarn install` and CocoaPods for you:
+
+```bash
+npx create-rn87-app MyApp
+```
+
+Both packages live on the public npm registry: [`hbn-rn-template`](https://www.npmjs.com/package/hbn-rn-template) (the template) and [`create-rn87-app`](https://www.npmjs.com/package/create-rn87-app) (the CLI).
+
+### 2. One-liner from GitHub
 
 ```bash
 npx @react-native-community/cli@latest init MyApp \
@@ -20,7 +35,7 @@ cd MyApp && yarn ios    # or `yarn android`
 
 This downloads the repo, renames `HbnRnTemplate` → `MyApp` everywhere (package name, Android package `com.hbnrntemplate` → `com.myapp`, iOS target, native module `PhotoADay` → `MyApp`), runs `yarn install`, and you're ready to run.
 
-### 2. Clone first, use locally
+### 3. Clone first, use locally
 
 Best when you want to inspect or customise the template before scaffolding:
 
@@ -30,12 +45,18 @@ npx @react-native-community/cli@latest init MyApp --template ./RN-Template
 cd MyApp && yarn install && yarn ios
 ```
 
-### 3. Use the bundled `create-rn87-app` CLI
+### 4. Use the bundled `create-rn87-app` CLI
 
 Friendlier interactive scaffolder (prompts for target folder, package manager, etc.):
 
 ```bash
+npx create-rn87-app MyApp
+cd MyApp && yarn ios
+```
 
+Or, straight from a clone of this repo:
+
+```bash
 git clone https://github.com/hussambinnoor/RN-Template
 node RN-Template/cli/bin/create-rn87-app.js MyApp
 cd MyApp && yarn install && yarn ios
@@ -43,7 +64,7 @@ cd MyApp && yarn install && yarn ios
 
 ### Or click **Use this template** on GitHub
 
-On the repo page, the green **Use this template** button forks the whole template repo as a brand-new standalone project. Use this if you want to maintain a custom fork; for scaffolding an RN app, use one of the three commands above.
+On the repo page, the green **Use this template** button forks the whole template repo as a brand-new standalone project. Use this if you want to maintain a custom fork; for scaffolding an RN app, use one of the four commands above.
 
 ### Requirements
 
@@ -213,7 +234,7 @@ npx @react-native-community/cli@latest init MyApp \
   --pm yarn
 ```
 
-When this template is published to npm as `rn-template`, the `--template` flag becomes optional (it'll default to the package name).
+This template is published to npm as `hbn-rn-template`, so the `--template` flag is optional — it defaults to the package name.
 
 ## Verifying a scaffold
 
@@ -414,7 +435,7 @@ useAppStore.getState().setThemePreference("dark");
 
 ## Known limitations
 
-- The CLI expects the template to be published to npm as `rn-template` for the default flow. Until then, set `HBN_RN_TEMPLATE` or pass `--template <path>`.
+- The CLI defaults to the npm package `hbn-rn-template`. When scaffolding from a local clone, set `HBN_RN_TEMPLATE` or pass `--template <path>` instead.
 - The template's `customConditions: ["react-native"]` only takes effect under a `moduleResolution: "bundler"` TypeScript config — this is set by default.
 - `node_modules/`, `ios/Pods/`, `android/build/`, `vendor/`, and `yarn.lock` are intentionally **excluded** from `template/`. The RN CLI's copy step chokes on them with `paths[3] undefined` if they're present. Re-generated on first install in each new app.
 
@@ -631,6 +652,33 @@ yarn template:lint:fix
 #      template/android/app/src/main/res/drawable*/splash_logo.png
 ```
 
+## 📊 Traction & analytics
+
+Track who is finding and using this template with one command:
+
+```bash
+yarn traction
+```
+
+It prints every public signal we care about in one snapshot:
+
+| Source | Metrics | Auth needed |
+| --- | --- | --- |
+| GitHub repo | stars, forks, watchers, open issues, age | no |
+| GitHub traffic | unique visitors, page views, clones, top referrers & paths | yes — `GH_TOKEN` with push access |
+| npm registry | latest version, publish date, unpacked size | no |
+| npm downloads | weekly / monthly / yearly download totals | no |
+
+Only the GitHub traffic section needs credentials, and it degrades gracefully — every other
+section still works without them. To enable traffic data:
+
+```bash
+gh auth login
+gh auth switch   # pick the account that owns HussamBinNoor/RN-Template
+```
+
+…or export `GH_TOKEN` to a PAT with `repo` scope.
+
 ## License
 
-MIT — see [LICENSE](LICENSE) (TBD by the maintainer).
+MIT — see [LICENSE](LICENSE).

@@ -1,15 +1,47 @@
 {
   "name": "create-rn87-app",
   "version": "0.1.0",
-  "private": true,
-  "description": "Scaffold a new React Native 0.87 app from the HBN-RN-Template (no GitHub/npm publish required).",
+  "description": "Scaffold a production-grade React Native 0.87 app — strict TypeScript, New Architecture, theming, navigation, forms and 20+ UI components — in seconds.",
+  "keywords": [
+    "react-native",
+    "react-native-template",
+    "rn-template",
+    "boilerplate",
+    "starter",
+    "scaffold",
+    "create-react-native-app",
+    "typescript",
+    "new-architecture",
+    "ios",
+    "android",
+    "hbn"
+  ],
+  "homepage": "https://github.com/HussamBinNoor/RN-Template#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HussamBinNoor/RN-Template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HussamBinNoor/RN-Template/issues"
+  },
+  "author": {
+    "name": "Hussam Bin Noor",
+    "url": "https://github.com/HussamBinNoor"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "bin/",
+    "src/"
+  ],
   "bin": {
     "create-rn87-app": "./bin/create-rn87-app.js"
   },
   "type": "commonjs",
   "main": "./src/index.js",
   "scripts": {
-    "test": "node --test src/__tests__"
+    "test": "node --test src/__tests__/*.test.js"
   },
   "engines": {
     "node": ">=20.12"

@@ -1,8 +1,42 @@
 {
   "name": "hbn-rn-template",
   "version": "0.1.0",
-  "private": true,
   "description": "HBN RN Template — production-grade React Native 0.87 starter. Use `npx @react-native-community/cli init MyApp --template .` or the `create-rn87-app` CLI to scaffold a new app.",
+  "keywords": [
+    "react-native",
+    "react-native-template",
+    "rn-template",
+    "boilerplate",
+    "starter",
+    "starter-kit",
+    "typescript",
+    "new-architecture",
+    "expo",
+    "ios",
+    "android",
+    "hbn"
+  ],
+  "homepage": "https://github.com/HussamBinNoor/RN-Template#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HussamBinNoor/RN-Template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HussamBinNoor/RN-Template/issues"
+  },
+  "author": {
+    "name": "Hussam Bin Noor",
+    "url": "https://github.com/HussamBinNoor"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "template/",
+    "template.config.js",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "template:install": "cd template && yarn install",
     "template:test": "cd template && yarn test",
@@ -11,7 +45,8 @@
     "template:format": "cd template && yarn format",
     "template:clean": "cd template && yarn clean",
     "logo:build": "python3 scripts/build-logo.py",
-    "cli:test": "node --test cli/src/__tests__",
+    "traction": "node scripts/traction.js",
+    "cli:test": "node --test cli/src/__tests__/*.test.js",
     "test": "yarn cli:test",
     "lint": "echo 'Run `yarn template:lint` to lint the embedded template, or `yarn cli:test` to test the CLI.'"
   },
