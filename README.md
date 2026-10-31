@@ -1,6 +1,6 @@
 # RN-Template
 
-A production-grade **React Native 0.87.1** starter template, authored by [Hussam Bin Noor](https://github.com/hussambinnoor). Strict TypeScript, the New Architecture (Fabric + TurboModules) on by default, theming, navigation, forms, data layer, 20+ reusable UI components, working demo screens, and a **branded splash + AppIcon** generated from a single source asset.
+A production-grade **React Native 0.87.1** starter template, authored by [Hussam Bin Noor](https://github.com/HussamBinNoor). Strict TypeScript, the New Architecture (Fabric + TurboModules) on by default, theming, navigation, forms, data layer, 20+ reusable UI components, working demo screens, and a **branded splash + AppIcon** generated from a single source asset.
 
 The repo is laid out as a [React Native CLI template package](https://github.com/react-native-community/cli/blob/main/docs/init.md#creating-custom-template) so it can be used directly with `npx @react-native-community/cli init … --template .` and consumed end-to-end by the bundled `create-rn87-app` scaffolder.
 
@@ -8,67 +8,80 @@ The repo is laid out as a [React Native CLI template package](https://github.com
 
 There are **four ways** to scaffold a new React Native app from this template. Pick whichever fits your workflow.
 
-> ⚠️ **Heads up:** project names must be **alphanumeric** — the React Native CLI rejects hyphens, spaces, and most symbols. Use `MyApp`, **not** `My-App`. Same rule for every command below.
+> ⚠️ **Project names** must be **alphanumeric PascalCase** — no hyphens, spaces, or symbols. Use `MyApp` or `AiPolice`, **not** `My-App`.
+>
+> ⚠️ **Do not wrap paths or URLs in `<…>`.** Those angle brackets are documentation placeholders only. Pasting them into zsh causes `parse error near '\n'`. Copy the commands below as-is.
 
-### 1. From npm ⭐ (fastest)
+### 1. From a local clone (best while developing the template)
 
-```bash
-npx @react-native-community/cli@latest init MyApp --template hbn-rn-template
-cd MyApp && yarn install && yarn ios    # or `yarn android`
-```
-
-Or use the friendly scaffolder, which also handles `yarn install` and CocoaPods for you:
-
-```bash
-npx create-rn87-app MyApp
-```
-
-Both packages live on the public npm registry: [`hbn-rn-template`](https://www.npmjs.com/package/hbn-rn-template) (the template) and [`create-rn87-app`](https://www.npmjs.com/package/create-rn87-app) (the CLI).
-
-### 2. One-liner from GitHub
+From the parent folder of this repo (adjust the path if yours differs):
 
 ```bash
 npx @react-native-community/cli@latest init MyApp \
-  --template https://github.com/hussambinnoor/RN-Template
-cd MyApp && yarn ios    # or `yarn android`
+  --template /Users/mac/Documents/Free-Project/HBN-RN-Template
+cd MyApp
+yarn ios    # or: yarn android
 ```
 
-This downloads the repo, renames `HbnRnTemplate` → `MyApp` everywhere (package name, Android package `com.hbnrntemplate` → `com.myapp`, iOS target, native module `PhotoADay` → `MyApp`), runs `yarn install`, and you're ready to run.
-
-### 3. Clone first, use locally
-
-Best when you want to inspect or customise the template before scaffolding:
+Or from inside the template repo, using a relative path:
 
 ```bash
-git clone https://github.com/hussambinnoor/RN-Template
-npx @react-native-community/cli@latest init MyApp --template ./RN-Template
-cd MyApp && yarn install && yarn ios
+cd /Users/mac/Documents/Free-Project/HBN-RN-Template
+npx @react-native-community/cli@latest init MyApp --template .
+# project is created next to where you ran the command — move into it:
+cd ../MyApp   # or wherever the CLI printed the path
+yarn ios
 ```
 
-### 4. Use the bundled `create-rn87-app` CLI
+### 2. From GitHub
 
-Friendlier interactive scaffolder (prompts for target folder, package manager, etc.):
+Uses whatever is currently on the default branch of the remote (local unpushed fixes will not appear):
+
+```bash
+npx @react-native-community/cli@latest init AiPolice \
+  --template https://github.com/HussamBinNoor/RN-Template.git
+cd AiPolice
+yarn ios    # or: yarn android
+```
+
+The CLI copies `template/`, then renames `HbnRnTemplate` → your project name everywhere it can (iOS target, Android package `com.hbnrntemplate` → `com.aipolice`, `app.json`, native entry, etc.).
+
+### 3. Bundled `create-rn87-app` CLI (from this repo)
+
+Handles install (+ CocoaPods on macOS) after scaffold:
+
+```bash
+cd /Users/mac/Documents/Free-Project/HBN-RN-Template
+node cli/bin/create-rn87-app.js MyApp --template .
+cd MyApp
+yarn ios
+```
+
+Useful flags: `--pm npm`, `--skip-install`, `--verbose`, `--dry-run`.
+
+### 4. From npm (after you publish)
+
+```bash
+npx @react-native-community/cli@latest init MyApp --template hbn-rn-template
+cd MyApp && yarn ios
+```
+
+Or the published scaffolder:
 
 ```bash
 npx create-rn87-app MyApp
 cd MyApp && yarn ios
 ```
 
-Or, straight from a clone of this repo:
-
-```bash
-git clone https://github.com/hussambinnoor/RN-Template
-node RN-Template/cli/bin/create-rn87-app.js MyApp
-cd MyApp && yarn install && yarn ios
-```
+Packages: [`hbn-rn-template`](https://www.npmjs.com/package/hbn-rn-template) and [`create-rn87-app`](https://www.npmjs.com/package/create-rn87-app).
 
 ### Or click **Use this template** on GitHub
 
-On the repo page, the green **Use this template** button forks the whole template repo as a brand-new standalone project. Use this if you want to maintain a custom fork; for scaffolding an RN app, use one of the four commands above.
+That forks the whole template repo as a standalone project. Prefer the `init --template` flows above when you want a normal app scaffold, not a fork of the template packaging.
 
 ### Requirements
 
-- **Node** `>= 20.12`
+- **Node** `>= 22.13` (template `engines`; root package accepts `>= 20.12` for tooling)
 - **yarn** 1.x classic
 - **iOS** — macOS with Xcode 15+ and CocoaPods 1.13+
 - **Android** — Android Studio with API 24+ SDK and JDK 17
@@ -110,58 +123,40 @@ On the repo page, the green **Use this template** button forks the whole templat
 This repository **is** the template. The React Native app lives under `template/`, which is what the RN CLI copies when you scaffold a new project.
 
 ```
-HbnRnTemplate/
-├── template.config.js       # placeholderName, templateDir, title, etc.
-├── package.json             # CLI scripts (template:lint, template:test, cli:test, logo:build)
+HBN-RN-Template/
+├── template.config.js       # placeholderName: HbnRnTemplate, templateDir: template
+├── package.json             # npm package: hbn-rn-template
 ├── .gitignore
-├── cli/                     # create-rn87-app scaffolder
+├── cli/                     # create-rn87-app scaffolder (publish separately)
 │   ├── bin/create-rn87-app.js
+│   ├── package.json         # npm package: create-rn87-app
 │   └── src/
-│       ├── index.js
-│       ├── parse-args.js
-│       ├── validate-name.js
-│       ├── resolve-target.js
-│       ├── run-init.js
-│       ├── help.js
-│       ├── version.js
-│       └── log.js
 ├── scripts/
-│   └── build-logo.py        # regenerates iOS + Android icon/splash from assets/logo.png
-└── template/                # ← the actual RN 0.87 app
+│   ├── build-logo.py        # regenerates iOS + Android icon/splash from logo.png
+│   └── traction.js
+├── assets/logo.png          # optional root copy of the brand mark
+└── template/                # ← the actual RN 0.87 app (copied by init)
     ├── package.json
+    ├── yarn.lock
     ├── App.tsx
-    ├── index.js
-    ├── tsconfig.json
-    ├── babel.config.js
-    ├── metro.config.js
-    ├── jest.config.js
-    ├── jest.setup.ts
-    ├── .eslintrc.js
-    ├── .prettierrc.js
-    ├── .gitignore
-    ├── app.json
-    ├── Gemfile
-    ├── Gemfile.lock
-    ├── __tests__/           # co-located jest tests
-    ├── android/             # `com.hbnrntemplate` package; SplashTheme, splash_screen.xml
-    ├── ios/                 # `HbnRnTemplate.xcworkspace`; LaunchScreen.storyboard, AppIcon.appiconset
+    ├── assets/logo.png      # master art for logo:build
+    ├── android/             # com.hbnrntemplate; SplashTheme, splash_screen.xml
+    ├── ios/                 # HbnRnTemplate.xcworkspace + AppIcon / LaunchScreen
+    ├── __tests__/
     └── src/
-        ├── components/      # 20+ atoms, feedback, forms, layout, pickers, bottom-sheet, Splash
-        ├── config/          # env, feature flags
-        ├── constants/       # APP_NAME, APP_VERSION, AUTHOR_NAME, AUTHOR_GITHUB_URL, …
-        ├── features/
-        ├── hooks/           # useToast, useDebounce, usePrevious
-        ├── navigation/      # RootNavigator, MainTabs, types, linking
-        ├── providers/       # AppProviders, ThemeProvider, ToastProvider, QueryProvider
+        ├── components/      # common, feedback, forms, layout, pickers, bottom-sheet, Splash
+        ├── config/
+        ├── constants/
+        ├── hooks/
+        ├── navigation/
+        ├── providers/
         ├── screens/         # Home, Components, FormExample, Details, Settings
-        ├── services/        # api/ (axios + query client), api/example, index
-        ├── storage/         # MMKV instance + helpers
-        ├── store/           # Zustand stores
-        ├── theme/           # colors, spacing, typography, radii, shadows, themes
+        ├── services/
+        ├── storage/
+        ├── store/
+        ├── theme/
         ├── types/
-        ├── utils/           # cn, date, strings
-        ├── assets/          # logo.png (master) — re-exported to native by build-logo.py
-        └── localization/
+        └── utils/
 ```
 
 > **`templateDir: 'template'` is non-negotiable.** The RN CLI's `copyTemplate` does
@@ -194,48 +189,45 @@ yarn ios          # in another, or: yarn android
 
 ## Scaffolding a new app
 
-Two ways, same underlying flow (the RN CLI's `--template` flag):
+Same underlying engine in both cases: `@react-native-community/cli init --template …`.
 
-### Option A — bundled CLI (recommended)
+### Option A — bundled CLI
 
-The `create-rn87-app` CLI in `cli/` is a thin wrapper that calls the RN CLI for you and runs `yarn install` (and `pod install` on macOS) afterwards.
+Thin wrapper around the RN CLI; then runs install (and CocoaPods on macOS).
 
-```sh
-# from anywhere, pointing at this template by path:
-node /path/to/HbnRnTemplate/cli/bin/create-rn87-app.js MyApp /tmp/my-app
+```bash
+# from the template repo root — always pass an absolute or resolvable --template while developing:
+node cli/bin/create-rn87-app.js MyApp --template "$(pwd)"
 
-# or, from the template root, with a relative path:
-node cli/bin/create-rn87-app.js MyApp
+# optional parent directory as second positional (project lands at PARENT/MyApp):
+node cli/bin/create-rn87-app.js MyApp /tmp/apps --template "$(pwd)"
 
-# pick a different package manager:
-node cli/bin/create-rn87-app.js MyApp --pm npm
+# different package manager:
+node cli/bin/create-rn87-app.js MyApp --template "$(pwd)" --pm npm
 ```
 
-CLI flags:
+| Flag | Description |
+| --- | --- |
+| first arg (name) | PascalCase project name (required) |
+| second arg (target) | Optional parent directory. Default: create `./Name` under the current working directory |
+| `--pm` / `--package-manager` | `yarn` (default), `npm`, or `pnpm` |
+| `--template` | Local path, `file://…`, GitHub URL, or npm package name |
+| `--skip-install` | Skip dependency install |
+| `--verbose` | Stream subprocess output |
+| `--dry-run` | Print the plan only |
+| `-h` / `--help`, `-v` / `--version` | Help / version |
 
-| Flag                               | Description                                         |
-| ---------------------------------- | --------------------------------------------------- |
-| `<name>`                           | PascalCase project name (required).                 |
-| `[target]`                         | Directory to scaffold into. Defaults to `./<name>`. |
-| `--pm`, `--package-manager <name>` | `yarn` (default), `npm`, or `pnpm`.                 |
-| `--template <path-or-package>`     | Override the template location.                     |
-| `--verbose`                        | Stream subprocess output.                           |
-| `--dry-run`                        | Print what would happen without writing anything.   |
-| `-h`, `--help`                     | Show CLI help.                                      |
-| `-v`, `--version`                  | Print the CLI version.                              |
-
-`HBN_RN_TEMPLATE` env var sets the default template when the CLI is run outside the template directory.
+`HBN_RN_TEMPLATE` overrides the default template when you omit `--template` (default npm name: `hbn-rn-template`).
 
 ### Option B — raw RN CLI
 
-```sh
+```bash
 npx @react-native-community/cli@latest init MyApp \
-  --template /path/to/HbnRnTemplate \
+  --template /Users/mac/Documents/Free-Project/HBN-RN-Template \
   --pm yarn
 ```
 
-This template is published to npm as `hbn-rn-template`, so the `--template` flag is optional — it defaults to the package name.
-
+After publish, you can use `--template hbn-rn-template` instead of a path.
 ## Verifying a scaffold
 
 After scaffolding, the new project should:
@@ -338,17 +330,16 @@ yarn template:lint
 # ─────────────────────────────────────────────────────────────────────────
 rm -rf /tmp/logo-verify
 node cli/bin/create-rn87-app.js VerifyLogo /tmp/logo-verify \
-  --template . --pm yarn --skip-install
+  --template "$(pwd)" --pm yarn --skip-install
 
-# Confirm the assets travelled through the rename:
-ls /tmp/logo-verify/VerifyLogo/ios/VerifyLogo/Images.xcassets/AppIcon.appiconset/ | head -3
-ls /tmp/logo-verify/VerifyLogo/android/app/src/main/res/mipmap-xxxhdpi/
-cat /tmp/logo-verify/VerifyLogo/android/app/src/main/res/drawable/splash_screen.xml | head -3
-# And there should be zero leftover `HbnRnTemplate` references:
-grep -rln "HbnRnTemplate" /tmp/logo-verify/VerifyLogo 2>/dev/null
-# expected: (empty)
+# Confirm the assets travelled through the rename
+# (project path is /tmp/logo-verify/VerifyLogo with the current CLI):
+APP=/tmp/logo-verify/VerifyLogo
+ls "$APP/ios/VerifyLogo/Images.xcassets/AppIcon.appiconset/" | head -3
+ls "$APP/android/app/src/main/res/mipmap-xxxhdpi/"
+# Prefer zero leftover placeholder names in native identifiers:
+grep -rln "HbnRnTemplate" "$APP" 2>/dev/null || true
 
-# Clean up:
 rm -rf /tmp/logo-verify
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -366,7 +357,7 @@ git commit -m "chore(branding): update AppIcon and splash to new logo"
 
 ## Customizations baked in
 
-- `package.json` carries `author: { name: "Hussam Bin Noor", url: "https://github.com/hussambinnoor" }` and a `repository` block pointing at the source. These survive the scaffold rename pass because the RN CLI's `replacePlaceholderWithPackageName` only touches the `placeholderName` string.
+- `package.json` carries `author: { name: "Hussam Bin Noor", url: "https://github.com/HussamBinNoor" }` and a `repository` block pointing at the source. These survive the scaffold rename pass because the RN CLI's `replacePlaceholderWithPackageName` only touches the `placeholderName` string (`HbnRnTemplate`).
 - `src/constants/index.ts` exports `AUTHOR_NAME` and `AUTHOR_GITHUB_URL` for in-app use.
 - `src/screens/Settings/Settings.tsx` → **About** card shows a `By Hussam Bin Noor` row that opens the GitHub profile (uses the `AtSign` icon from `AppIcon`).
 
@@ -435,10 +426,48 @@ useAppStore.getState().setThemePreference("dark");
 
 ## Known limitations
 
-- The CLI defaults to the npm package `hbn-rn-template`. When scaffolding from a local clone, set `HBN_RN_TEMPLATE` or pass `--template <path>` instead.
-- The template's `customConditions: ["react-native"]` only takes effect under a `moduleResolution: "bundler"` TypeScript config — this is set by default.
-- `node_modules/`, `ios/Pods/`, `android/build/`, `vendor/`, and `yarn.lock` are intentionally **excluded** from `template/`. The RN CLI's copy step chokes on them with `paths[3] undefined` if they're present. Re-generated on first install in each new app.
+- The CLI defaults to the npm package `hbn-rn-template`. When scaffolding from a local clone, pass `--template /absolute/path/to/this/repo` (or set `HBN_RN_TEMPLATE`).
+- GitHub `--template https://github.com/HussamBinNoor/RN-Template.git` only sees **pushed** commits.
+- `customConditions: ["react-native"]` needs `moduleResolution: "bundler"` — already set in `template/tsconfig.json`.
+- Do **not** commit `template/node_modules/`, `template/ios/Pods/`, or Android/iOS build dirs into the template package — they break RN CLI copy. `template/yarn.lock` **is** kept so scaffolds get reproducible installs.
 
+## Publishing (you run these)
+
+Preflight from the repo root:
+
+```bash
+yarn cli:test
+yarn template:typecheck
+yarn template:test --watchAll=false --no-watchman
+yarn template:lint
+
+# dry-scaffold without install
+rm -rf /tmp/hbn-scaffold-check
+npx @react-native-community/cli@latest init ScaffoldCheck \
+  --template "$(pwd)" \
+  --directory /tmp/hbn-scaffold-check \
+  --skip-install
+```
+
+Publish the template package (root), then the scaffolder (`cli/`):
+
+```bash
+# 1) template
+npm pack --dry-run    # confirm no node_modules / Pods / caches in the tarball
+npm publish --access public
+
+# 2) scaffolder
+cd cli
+npm pack --dry-run
+npm publish --access public
+```
+
+Then verify:
+
+```bash
+npx @react-native-community/cli@latest init PubCheck --template hbn-rn-template
+npx create-rn87-app PubCheck2
+```
 ## Troubleshooting / Fix
 
 A field guide for the things that bit me while building this and will probably bite you too. Each section gives the symptom, the cause, and the fix in command form.
@@ -458,22 +487,27 @@ grep templateDir template.config.js
 
 # 2. If it's missing, add it and retry:
 #    (edit template.config.js, add: `templateDir: 'template',`)
-node cli/bin/create-rn87-app.js MyApp /tmp/my-app --template . --skip-install
+node cli/bin/create-rn87-app.js MyApp /tmp/my-app --template "$(pwd)" --skip-install
 ```
 
 ### Scaffold fails with `"Received malformed response from registry for '.'"`
 
-**Cause.** The CLI is treating the value of `--template` as an npm package name instead of a local path. The wrapper CLI needs to forward `--template` to the underlying `init` call.
+**Cause.** The CLI treated `--template .` as an npm package name instead of a local path.
 
 **Fix.**
 
-```sh
-# Pass an absolute path, not a relative one, and confirm the wrapper forwards it:
+```bash
+# Always pass an absolute path while developing locally:
 node cli/bin/create-rn87-app.js MyApp /tmp/my-app \
   --template "$(pwd)" --verbose
-# The "template:" line in the output should print the absolute path,
-# not the literal ".".
+# The "template:" line should print the absolute path, not ".".
 ```
+
+### zsh: `parse error near '\n'` when pasting a command
+
+**Cause.** The command included documentation angle brackets such as `--template <https://…>` or `--template <this-repo-path>`. zsh treats `<…>` as redirection.
+
+**Fix.** Paste the real path or URL with no angle brackets (see Quick start).
 
 ### Scaffold fails with `"Target directory already exists and is not empty"`
 
@@ -481,11 +515,10 @@ node cli/bin/create-rn87-app.js MyApp /tmp/my-app \
 
 **Fix.**
 
-```sh
-# Either remove the dir, or pick a fresh target:
+```bash
 rm -rf /tmp/my-app/MyApp          # only if you're sure
-# or:
-node cli/bin/create-rn87-app.js MyApp /tmp/my-app-fresh --template .
+# or pick a fresh parent:
+node cli/bin/create-rn87-app.js MyApp /tmp/my-app-fresh --template "$(pwd)"
 ```
 
 ### App icon doesn't update after I swap `template/assets/logo.png`
@@ -601,13 +634,14 @@ yarn test --detectOpenHandles
 **Fix.**
 
 ```sh
-# Strip build artifacts out of the template — they're regenerated on first install:
+# Strip build artifacts out of the template — they're regenerated on first install.
+# Keep template/yarn.lock (reproducible scaffolds).
 rm -rf template/ios/Pods template/ios/build
 rm -rf template/android/build template/android/app/build
 rm -rf template/node_modules template/vendor
-rm -f  template/yarn.lock
+rm -f template/.eslintcache
 # Verify nothing's left:
-find template -maxdepth 2 -name "Pods" -o -name "build" -o -name "node_modules" 2>/dev/null
+find template -maxdepth 2 \( -name Pods -o -name build -o -name node_modules \) 2>/dev/null
 # expected: (empty)
 ```
 
