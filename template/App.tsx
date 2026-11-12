@@ -1,9 +1,20 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { LogBox, StatusBar } from 'react-native';
 import { AppProviders } from '@/providers/AppProviders';
 import { RootNavigator } from '@/navigation/RootNavigator';
 import { Splash } from '@/components/Splash';
 import { useAppTheme } from '@/providers/ThemeProvider';
+
+// Reanimated 4.6+ warns when @gorhom/bottom-sheet passes dependency arrays on
+// native (ignored there; web-only). Sheet still works — library mismatch
+// (gorhom/react-native-bottom-sheet#2785). Quiet this message only; do not use
+// configureReanimatedLogger to silence all Reanimated logs. Remove after a
+// bottom-sheet release that stops passing native dependency arrays.
+if (__DEV__) {
+  LogBox.ignoreLogs([
+    '[Reanimated] Dependencies should only be used on the web',
+  ]);
+}
 
 /**
  * Root component. Wraps everything in app-wide providers + navigation.

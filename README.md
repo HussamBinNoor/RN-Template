@@ -430,6 +430,8 @@ useAppStore.getState().setThemePreference("dark");
 - GitHub `--template https://github.com/HussamBinNoor/RN-Template.git` only sees **pushed** commits.
 - `customConditions: ["react-native"]` needs `moduleResolution: "bundler"` — already set in `template/tsconfig.json`.
 - Do **not** commit `template/node_modules/`, `template/ios/Pods/`, or Android/iOS build dirs into the template package — they break RN CLI copy. `template/yarn.lock` **is** kept so scaffolds get reproducible installs.
+- **Zod 4 + Metro:** Zod 4 uses `export * as` namespace re-exports. The RN Babel preset's modules-commonjs transform does not handle that, so this template includes `@babel/plugin-transform-export-namespace-from` in `template/babel.config.js` (early in `plugins`; `react-native-worklets/plugin` stays last). After any Babel change, restart Metro with `yarn start --reset-cache`.
+- **Reanimated + `@gorhom/bottom-sheet`:** With Reanimated ≥ 4.6 and bottom-sheet 5.2.x, mounting a sheet can flood `__DEV__` with `[Reanimated] Dependencies should only be used on the web…` ([gorhom#2785](https://github.com/gorhom/react-native-bottom-sheet/issues/2785)). Behavior is fine; `App.tsx` uses a targeted `LogBox.ignoreLogs` for that message only (not a global Reanimated logger mute). Remove the ignore after upgrading past a bottom-sheet release that stops passing native dependency arrays.
 
 ## Publishing (you run these)
 
@@ -471,6 +473,28 @@ npx create-rn87-app PubCheck2
 ## Troubleshooting / Fix
 
 A field guide for the things that bit me while building this and will probably bite you too. Each section gives the symptom, the cause, and the fix in command form.
+
+### Metro fails with `Export namespace should be first transformed by @babel/plugin-transform-export-namespace-from`
+
+**Cause.** Zod 4 (pulled in directly and via `@hookform/resolvers`) ships ESM that uses `export * as` (e.g. `zod/v4/classic/external.js`). React Native's Babel preset converts modules with `@babel/plugin-transform-modules-commonjs`, which does not handle that syntax ([colinhacks/zod#4741](https://github.com/colinhacks/zod/issues/4741)).
+
+**Fix.** Keep Zod 4; do not downgrade to v3 for this. Ensure the template Babel config includes the plugin **early** in `plugins`, with worklets still **last**:
+
+```js
+plugins: [
+  '@babel/plugin-transform-export-namespace-from',
+  // …module-resolver, etc.…
+  'react-native-worklets/plugin', // must remain last
+]
+```
+
+```bash
+# in the app / template package:
+yarn add -D @babel/plugin-transform-export-namespace-from
+yarn start --reset-cache
+```
+
+This repo already ships that setup under `template/`.
 
 ### Scaffold fails with `"The 'paths[3]' argument must be of type string. Received undefined."`
 
